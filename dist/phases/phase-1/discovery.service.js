@@ -1,30 +1,32 @@
+const PER_PAGE = 30;
 class discoveryClass {
     async fetchUsers(query, page) {
         try {
-            const per_page = 30;
-            let data = await fetch(`https://api.github.com/search/users?q=${query}&per_page=${per_page}&page=${page}`);
-            if (!data.ok) {
-                return "Request is not Successful!!!";
+            const url = `https://api.github.com/search/users?q=${encodeURIComponent(query)}&per_page=${PER_PAGE}&page=${page}`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`GitHub API returned ${response.status}: ${response.statusText}`);
             }
-            let rawUsers = await data.json();
-            if (Object.keys(rawUsers).length == 0) {
-                return "user's Doesn't have.";
-            }
-            console.log(rawUsers);
-            let previousIds = new Set([]);
-            let users = rawUsers.items.filter((user) => {
-                const isVaild = !user.site_admin;
-                const isUnique = !previousIds.has(user.id);
-                if (isVaild && isUnique) {
-                    previousIds.add(user.id);
+            const rawUsers = await response.json();
+            const totalCount = rawUsers.total_count ?? 0;
+            const items = rawUsers.items ?? [];
+            // De-duplicate within the page by user ID and exclude site admins
+            const seenIds = new Set();
+            const users = items.filter((user) => {
+                const isValid = !user.site_admin;
+                const isUnique = !seenIds.has(user.id);
+                if (isValid && isUnique) {
+                    seenIds.add(user.id);
                     return true;
                 }
                 return false;
             });
-            return users;
+            // GitHub caps pagination at 1000 results (page * PER_PAGE)
+            const hasMore = items.length === PER_PAGE && page * PER_PAGE < Math.min(totalCount, 1000);
+            return { users, totalCount, hasMore, page };
         }
         catch (error) {
-            throw new Error(`Error:${error.message}`);
+            throw new Error(`Discovery fetchUsers failed: ${error.message}`);
         }
     }
 }

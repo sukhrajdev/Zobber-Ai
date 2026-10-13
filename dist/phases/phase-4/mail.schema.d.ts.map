@@ -1,1 +1,1 @@
-{"version":3,"file":"mail.schema.d.ts","sourceRoot":"","sources":["../../../src/phases/phase-4/mail.schema.ts"],"names":[],"mappings":""}
+{"version":3,"file":"mail.schema.d.ts","sourceRoot":"","sources":["../../../src/phases/phase-4/mail.schema.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,CAAC,EAAE,MAAM,KAAK,CAAC;AAExB;;GAEG;AACH,eAAO,MAAM,gBAAgB;;;;;;;;;;iBAU3B,CAAC;AAEH;;GAEG;AACH,eAAO,MAAM,qBAAqB;;;;iBAIhC,CAAC;AAEH;;GAEG;AACH,eAAO,MAAM,oBAAoB;;;;;;;;;;;iBAO/B,CAAC;AAEH;;GAEG;AACH,eAAO,MAAM,yBAAyB;;;;;;;;;;;;;;;;;;;iBAQpC,CAAC"}

@@ -1,6 +1,14 @@
+import type { DiscoveryPageResult } from "./discovery.service.js";
 declare class phase1Class {
-    readonly pages = 10;
-    getUser(query: string): Promise<any>;
+    /**
+     * Fetches a specific page of GitHub users for the given query.
+     * Used by the retry loop in index.ts when Phase 2 yields 0 leads.
+     */
+    getUserPage(query: string, page: number): Promise<DiscoveryPageResult>;
+    /**
+     * Convenience wrapper — fetches the default starting page.
+     */
+    getUser(query: string): Promise<DiscoveryPageResult>;
 }
 declare const _default: phase1Class;
 export default _default;

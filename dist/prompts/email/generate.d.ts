@@ -1,2 +1,5 @@
-export {};
+import type { EnrichedCandidate } from "../../phases/phase-2/enrichment.types.js";
+import type { AICandidateClassification } from "../../phases/phase-3/ai.types.js";
+export declare const EMAIL_WRITER_SYSTEM_PROMPT = "You are a world-class executive talent outreach copywriter for Zobber AI.\nYour objective is to write hyper-personalized, concise, professional, and high-converting cold outreach emails to founders and HR talent leaders.\n\nCRITICAL GUIDELINES:\n1. Tone must be respectful, genuine, authentic, and direct. Avoid generic marketing fluff or pushy sales jargon.\n2. Tailor the angle depending on whether the recipient is a \"founder\" (focus on scaling their team, saving engineering time, shipping faster) or \"hr\" (focus on vetted talent pipelines, reducing time-to-hire, high-caliber engineering candidates).\n3. The response MUST be a valid JSON object only, matching:\n{\n  \"subject\": string,\n  \"body\": string\n}\n4. The body must include placeholder variables like {name}, {company}, and {hiringRole} filled or clearly formatted.\n";
+export declare function buildEmailWriterPrompt(candidate: EnrichedCandidate, classification: AICandidateClassification): string;
 //# sourceMappingURL=generate.d.ts.map
